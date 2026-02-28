@@ -8,6 +8,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1 {
@@ -269,28 +271,166 @@ h1:hover {
 
 /* Dynamic background removed (keeping background static) */
 
-/* Improved mobile layout with larger fonts for better readability */
+/* Enhanced mobile responsiveness with larger fonts and better UX */
 @media (max-width: 768px) {
   body {
-    font-size: 20px;
-    padding: 20px;
+    font-size: 22px;
+    padding: 16px;
+    justify-content: flex-start;
+    min-height: 100vh;
   }
 
   h1 {
-    font-size: 32px;
-    margin-bottom: 30px;
+    font-size: 36px;
+    margin-bottom: 24px;
+    font-weight: 600;
   }
 
   .task-input {
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0 auto 20px;
   }
 
   .input-row {
     flex-direction: column;
     align-items: stretch;
-    gap: 15px;
+    gap: 16px;
+    width: 100%;
+  }
+
+  #taskInput {
+    font-size: 22px;
+    padding: 16px 18px;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 56px; /* Better touch target */
+  }
+
+  .due-date-field,
+  .priority-field {
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .due-date-field span,
+  .priority-field span {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  #dueDateInput {
+    font-size: 20px;
+    padding: 14px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 52px;
+  }
+
+  #prioritySelect {
+    font-size: 20px;
+    padding: 14px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 52px;
+  }
+
+  #addTaskBtn {
+    font-size: 20px;
+    padding: 16px 20px;
+    width: 100%;
+    min-height: 56px;
+    font-weight: 600;
+  }
+
+  #suggestBtn {
+    font-size: 20px;
+    padding: 16px 20px;
+    width: 100%;
+    min-height: 56px;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  .filters {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+    width: 100%;
+    padding: 0 4px;
+  }
+
+  .filter-btn {
+    font-size: 18px;
+    padding: 12px 18px;
+    min-height: 48px;
+    font-weight: 500;
+    flex: 1 1 auto;
+    min-width: calc(50% - 5px);
+  }
+
+  #taskList {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  #taskList li {
+    font-size: 20px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .task-text {
+    font-size: 20px;
+    flex: 1;
+  }
+
+  .task-due-date {
+    font-size: 16px;
+    margin-left: 8px;
+  }
+
+  .task-priority {
+    font-size: 15px;
+    padding: 4px 12px;
+    margin-left: 8px;
+  }
+
+  #taskList li button {
+    font-size: 22px;
+    padding: 8px 12px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Better spacing for task content */
+  .task-text {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
+
+/* Extra small phones (very small screens) */
+@media (max-width: 480px) {
+  body {
+    font-size: 20px;
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
   }
 
   #taskInput {
@@ -298,11 +438,7 @@ h1:hover {
     padding: 14px 16px;
   }
 
-  #dueDateInput {
-    font-size: 18px;
-    padding: 12px 14px;
-  }
-
+  #dueDateInput,
   #prioritySelect {
     font-size: 18px;
     padding: 12px 14px;
@@ -314,32 +450,19 @@ h1:hover {
     padding: 14px 18px;
   }
 
-  .due-date-field,
-  .priority-field {
-    font-size: 15px;
-  }
-
-  .filters {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
   .filter-btn {
     font-size: 16px;
-    padding: 8px 14px;
-  }
-
-  #taskList {
-    width: 100%;
-    max-width: 100%;
+    padding: 10px 14px;
+    min-width: calc(50% - 5px);
   }
 
   #taskList li {
     font-size: 18px;
     padding: 16px 18px;
-    margin-bottom: 14px;
+  }
+
+  .task-text {
+    font-size: 18px;
   }
 
   .task-due-date {
@@ -348,11 +471,5 @@ h1:hover {
 
   .task-priority {
     font-size: 14px;
-    padding: 3px 10px;
-  }
-
-  #taskList li button {
-    font-size: 18px;
-    padding: 6px 10px;
   }
 }
