@@ -5,37 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart Task Manager</title>
   <link rel="stylesheet" href="./style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Smart Task Manager</h1>
-  <div class="task-input">
-    <div class="input-row">
-      <input type="text" id="taskInput" placeholder="Enter your task here">
-      <label class="due-date-field">
-        <span>Due Date</span>
-        <input type="date" id="dueDateInput">
-      </label>
-      <label class="priority-field">
-        <span>Priority</span>
-        <select id="prioritySelect">
-          <option value="high">High</option>
-          <option value="medium" selected>Medium</option>
-          <option value="low">Low</option>
-        </select>
-      </label>
-      <button id="addTaskBtn">Add Task</button>
+  <div class="container">
+    <h1>Smart Task Manager</h1>
+    
+    <div class="task-input">
+      <div class="input-row">
+        <input type="text" id="taskInput" placeholder="What needs to be done?">
+        <div class="input-group">
+          <label class="due-date-field">
+            <span>Due Date</span>
+            <input type="date" id="dueDateInput">
+          </label>
+          <label class="priority-field">
+            <span>Priority</span>
+            <select id="prioritySelect">
+              <option value="high">High</option>
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </label>
+        </div>
+        <button id="addTaskBtn">Add Task</button>
+      </div>
+      <button id="suggestBtn" class="suggest-btn">✨ Auto-Suggest Tasks</button>
     </div>
-    <button id="suggestBtn" class="suggest-btn">Suggest Tasks</button>
+
+    <div class="filters">
+      <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="today">Today</button>
+      <button class="filter-btn" data-filter="completed">Completed</button>
+      <button class="filter-btn" data-filter="pending">Pending</button>
+      <button class="filter-btn" data-filter="high">High</button>
+    </div>
+
+    <ul id="taskList"></ul>
   </div>
-  <div class="filters">
-    <button class="filter-btn filter-btn--active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="today">Today</button>
-    <button class="filter-btn" data-filter="completed">Completed</button>
-    <button class="filter-btn" data-filter="pending">Pending</button>
-    <button class="filter-btn" data-filter="high">High Priority</button>
-  </div>
-  <ul id="taskList"></ul>
-  <div id="suggestedTasks"></div>
   <script src="./script.js"></script>
 </body>
 </html>
