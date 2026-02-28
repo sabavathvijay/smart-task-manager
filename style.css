@@ -1,15 +1,22 @@
 body {
   font-family: 'Segoe UI', 'Arial', sans-serif;
-  /* Colorful (but static) gradient background */
-  background: linear-gradient(135deg, #ff7aa2, #ffd36e, #7be8ff, #8d7bff, #7dffb2);
+  /* Keeping your original colorful gradient */
+  background: linear-gradient(135deg, #ff7aa, #ffd36e, #7be8ff, #8d7bff, #7dffb2);
   margin: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Changed to start to allow scrolling on mobile */
+  padding: 20px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+/* Ensure all elements calculate padding correctly */
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 h1 {
@@ -17,7 +24,13 @@ h1 {
   text-align: center;
   margin-bottom: 24px;
   font-weight: 500;
-  transition: transform 0.2s ease;
+  font-size: 2rem; /* Responsive font size */
+}
+
+/* Container for better control */
+.task-input, .filters, #taskList {
+  width: 100%;
+  max-width: 600px; /* Limits width on desktop but stays fluid on mobile */
 }
 
 .task-input {
@@ -25,451 +38,114 @@ h1 {
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
-  gap: 10px;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.2); /* Subtle glass effect to keep it colorful */
+  padding: 20px;
+  border-radius: 15px;
 }
 
 .input-row {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
+  flex-wrap: wrap; /* Allows items to wrap on narrow screens */
+  width: 100%;
+  justify-content: center;
+}
+
+/* Make inputs take full width on very small screens */
+#taskInput {
+  flex: 1 1 200px;
+  min-width: 200px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.due-date-field, .priority-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 120px;
+}
+
+.due-date-field span, .priority-field span {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+#addTaskBtn {
+  padding: 10px 20px;
+  background-color: #3a3d42;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: 1 1 100%; /* Button takes full width on wrap */
+}
+
+.suggest-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px dashed #3a3d42;
+  background: transparent;
+  cursor: pointer;
 }
 
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 14px;
+  gap: 8px;
+  margin-bottom: 20px;
   justify-content: center;
 }
 
 .filter-btn {
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(210, 215, 226, 0.9);
-  background: rgba(255, 255, 255, 0.9);
-  font-size: 13px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: white;
   cursor: pointer;
-  color: #485067;
-  transition: background 0.15s ease, border 0.15s ease, color 0.15s ease, transform 0.1s ease;
-}
-
-.filter-btn:hover {
-  background: #f3f6ff;
-  border-color: #a6b4e0;
-  transform: translateY(-1px);
+  font-size: 0.9rem;
 }
 
 .filter-btn--active {
-  background: #a6b4e0;
-  border-color: #a6b4e0;
-  color: #ffffff;
-}
-
-#dueDateInput {
-  padding: 8px 10px;
-  border: 1px solid #d2d7e2;
-  border-radius: 6px;
-  font-size: 14px;
-  outline: none;
-  transition: border 0.2s, box-shadow 0.2s;
-}
-
-#dueDateInput:focus {
-  border: 1.5px solid #a6b4e0;
-  box-shadow: 0 6px 16px rgba(120, 139, 224, 0.12);
-}
-
-.due-date-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 13px;
-  color: #3a3d42;
-}
-
-.priority-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 13px;
-  color: #3a3d42;
-}
-
-#prioritySelect {
-  padding: 8px 10px;
-  border: 1px solid #d2d7e2;
-  border-radius: 6px;
-  font-size: 14px;
-  outline: none;
-  background: #fff;
-  cursor: pointer;
-  transition: border 0.2s, box-shadow 0.2s;
-}
-
-#prioritySelect:focus {
-  border: 1.5px solid #a6b4e0;
-  box-shadow: 0 6px 16px rgba(120, 139, 224, 0.12);
-}
-#taskInput {
-  padding: 10px 14px;
-  border: 1px solid #d2d7e2;
-  border-radius: 6px;
-  font-size: 16px;
-  outline: none;
-  transition: border 0.2s, box-shadow 0.2s;
-  background: #fff;
-  color: #010a17;
-}
-
-#taskInput:focus {
-  border: 1.5px solid #a6b4e0;
-  box-shadow: 0 6px 16px rgba(120, 139, 224, 0.15);
-}
-
-#addTaskBtn {
-  padding: 10px 16px;
-  background: #a6b4e0;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.15s ease, box-shadow 0.2s ease;
-}
-
-#addTaskBtn:hover,
-#addTaskBtn:active {
-  background: #788be0;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 16px rgba(120, 139, 224, 0.18);
-}
-
-#suggestBtn {
-  padding: 10px 16px;
-  background: #ffffff;
-  color: #3a3d42;
-  border: 1px solid #d2d7e2;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.2s, border 0.2s, transform 0.15s ease, box-shadow 0.2s ease;
-  width: 100%;
-}
-
-#suggestBtn:hover,
-#suggestBtn:active {
-  background: #f5f7ff;
-  border-color: #a6b4e0;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 16px rgba(166, 180, 224, 0.16);
+  background-color: #3a3d42;
+  color: white;
 }
 
 #taskList {
   list-style: none;
   padding: 0;
-  margin: 0;
-  width: 340px;
-  max-width: 90vw;
 }
 
 #taskList li {
-  background: #fff;
-  margin-bottom: 12px;
-  padding: 12px 16px;
+  background: white;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 10px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(170,180,202,0.10);
-  cursor: pointer;
-  font-size: 16px;
-  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex-wrap: wrap; /* Task details can wrap on tiny screens */
+  gap: 10px;
 }
 
-#taskList li:last-child {
-  margin-bottom: 0;
-}
-
-#taskList li.completed span {
-  text-decoration: line-through;
-  color: #b0b6c3;
-}
-
-.task-text {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 8px;
-}
-
-.task-due-date {
-  font-size: 12px;
-  color: rgba(58, 61, 66, 0.65);
-  font-weight: 500;
-}
-
-.task-priority {
-  font-size: 12px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  line-height: 1.2;
-}
-
-/* Subtle priority cues */
-.task-priority--high {
-  color: #c62828;
-  background: rgba(198, 40, 40, 0.10);
-  border-color: rgba(198, 40, 40, 0.18);
-}
-
-.task-priority--medium {
-  color: #ef6c00;
-  background: rgba(239, 108, 0, 0.10);
-  border-color: rgba(239, 108, 0, 0.18);
-}
-
-.task-priority--low {
-  color: #2e7d32;
-  background: rgba(46, 125, 50, 0.10);
-  border-color: rgba(46, 125, 50, 0.18);
-}
-
-#taskList li button {
-  margin-left: auto;
-  color: #b9bfcf;
-  font-size: 15px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px 7px;
-  border-radius: 3px;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-#taskList li button:hover {
-  background: #f0f2fa;
-  color: #ff5f57;
-}
-
-#taskList li:hover {
-  background: #f8f9ff;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 16px rgba(120, 139, 224, 0.16);
-}
-
-/* Minimal overdue highlight (only for not-completed tasks) */
-#taskList li.overdue {
-  background: rgba(255, 95, 87, 0.08);
-  border: 1px solid rgba(255, 95, 87, 0.25);
-}
-
-h1:hover {
-  transform: translateY(-1px);
-}
-
-
-/* Dynamic background removed (keeping background static) */
-
-/* Enhanced mobile responsiveness with larger fonts and better UX */
-@media (max-width: 468px) {
-  body {
-    font-size: 22px;
-    padding: 16px;
-    justify-content: flex-start;
-    min-height: 100vh;
-  }
-
+/* Mobile Specific Tweaks */
+@media (max-width: 480px) {
   h1 {
-    font-size: 36px;
-    margin-bottom: 24px;
-    font-weight: 600;
+    font-size: 1.5rem;
   }
-
-  .task-input {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto 20px;
-  }
-
+  
   .input-row {
     flex-direction: column;
     align-items: stretch;
-    gap: 16px;
-    width: 100%;
   }
-
-  #taskInput {
-    font-size: 22px;
-    padding: 16px 18px;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 56px; /* Better touch target */
-  }
-
-  .due-date-field,
-  .priority-field {
-    font-size: 16px;
-    width: 100%;
-  }
-
-  .due-date-field span,
-  .priority-field span {
-    font-weight: 600;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  #dueDateInput {
-    font-size: 20px;
-    padding: 14px 16px;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 52px;
-  }
-
-  #prioritySelect {
-    font-size: 20px;
-    padding: 14px 16px;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 52px;
-  }
-
-  #addTaskBtn {
-    font-size: 20px;
-    padding: 16px 20px;
-    width: 100%;
-    min-height: 56px;
-    font-weight: 600;
-  }
-
-  #suggestBtn {
-    font-size: 20px;
-    padding: 16px 20px;
-    width: 100%;
-    min-height: 56px;
-    font-weight: 600;
-    margin-top: 12px;
-  }
-
-  .filters {
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 24px;
-    width: 100%;
-    padding: 0 4px;
-  }
-
-  .filter-btn {
-    font-size: 18px;
-    padding: 12px 18px;
-    min-height: 48px;
-    font-weight: 500;
+  
+  .due-date-field, .priority-field {
     flex: 1 1 auto;
-    min-width: calc(50% - 5px);
-  }
-
-  #taskList {
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-  }
-
-  #taskList li {
-    font-size: 20px;
-    padding: 18px 20px;
-    margin-bottom: 16px;
-    min-height: 64px;
-    display: flex;
-    align-items: center;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-
-  .task-text {
-    font-size: 20px;
-    flex: 1;
-  }
-
-  .task-due-date {
-    font-size: 16px;
-    margin-left: 8px;
-  }
-
-  .task-priority {
-    font-size: 15px;
-    padding: 4px 12px;
-    margin-left: 8px;
-  }
-
-  #taskList li button {
-    font-size: 22px;
-    padding: 8px 12px;
-    min-width: 44px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Better spacing for task content */
-  .task-text {
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-}
-
-/* Extra small phones (very small screens) */
-@media (max-width: 480px) {
-  body {
-    font-size: 20px;
-    padding: 12px;
-  }
-
-  h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-
-  #taskInput {
-    font-size: 20px;
-    padding: 14px 16px;
-  }
-
-  #dueDateInput,
-  #prioritySelect {
-    font-size: 18px;
-    padding: 12px 14px;
-  }
-
-  #addTaskBtn,
-  #suggestBtn {
-    font-size: 18px;
-    padding: 14px 18px;
-  }
-
-  .filter-btn {
-    font-size: 16px;
-    padding: 10px 14px;
-    min-width: calc(50% - 5px);
-  }
-
-  #taskList li {
-    font-size: 18px;
-    padding: 16px 18px;
-  }
-
-  .task-text {
-    font-size: 18px;
-  }
-
-  .task-due-date {
-    font-size: 14px;
-  }
-
-  .task-priority {
-    font-size: 14px;
   }
 }
