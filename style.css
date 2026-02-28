@@ -1,0 +1,315 @@
+body {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  /* Colorful (but static) gradient background */
+  background: linear-gradient(135deg, #ff7aa2, #ffd36e, #7be8ff, #8d7bff, #7dffb2);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  color: #3a3d42;
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+
+.task-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(210, 215, 226, 0.9);
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  cursor: pointer;
+  color: #485067;
+  transition: background 0.15s ease, border 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.filter-btn:hover {
+  background: #f3f6ff;
+  border-color: #a6b4e0;
+  transform: translateY(-1px);
+}
+
+.filter-btn--active {
+  background: #a6b4e0;
+  border-color: #a6b4e0;
+  color: #ffffff;
+}
+
+#dueDateInput {
+  padding: 8px 10px;
+  border: 1px solid #d2d7e2;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+#dueDateInput:focus {
+  border: 1.5px solid #a6b4e0;
+  box-shadow: 0 6px 16px rgba(120, 139, 224, 0.12);
+}
+
+.due-date-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #3a3d42;
+}
+
+.priority-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #3a3d42;
+}
+
+#prioritySelect {
+  padding: 8px 10px;
+  border: 1px solid #d2d7e2;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+#prioritySelect:focus {
+  border: 1.5px solid #a6b4e0;
+  box-shadow: 0 6px 16px rgba(120, 139, 224, 0.12);
+}
+#taskInput {
+  padding: 10px 14px;
+  border: 1px solid #d2d7e2;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  background: #fff;
+  color: #010a17;
+}
+
+#taskInput:focus {
+  border: 1.5px solid #a6b4e0;
+  box-shadow: 0 6px 16px rgba(120, 139, 224, 0.15);
+}
+
+#addTaskBtn {
+  padding: 10px 16px;
+  background: #a6b4e0;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+#addTaskBtn:hover,
+#addTaskBtn:active {
+  background: #788be0;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(120, 139, 224, 0.18);
+}
+
+#suggestBtn {
+  padding: 10px 16px;
+  background: #ffffff;
+  color: #3a3d42;
+  border: 1px solid #d2d7e2;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s, transform 0.15s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+#suggestBtn:hover,
+#suggestBtn:active {
+  background: #f5f7ff;
+  border-color: #a6b4e0;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(166, 180, 224, 0.16);
+}
+
+#taskList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 340px;
+  max-width: 90vw;
+}
+
+#taskList li {
+  background: #fff;
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(170,180,202,0.10);
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+#taskList li:last-child {
+  margin-bottom: 0;
+}
+
+#taskList li.completed span {
+  text-decoration: line-through;
+  color: #b0b6c3;
+}
+
+.task-text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.task-due-date {
+  font-size: 12px;
+  color: rgba(58, 61, 66, 0.65);
+  font-weight: 500;
+}
+
+.task-priority {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  line-height: 1.2;
+}
+
+/* Subtle priority cues */
+.task-priority--high {
+  color: #c62828;
+  background: rgba(198, 40, 40, 0.10);
+  border-color: rgba(198, 40, 40, 0.18);
+}
+
+.task-priority--medium {
+  color: #ef6c00;
+  background: rgba(239, 108, 0, 0.10);
+  border-color: rgba(239, 108, 0, 0.18);
+}
+
+.task-priority--low {
+  color: #2e7d32;
+  background: rgba(46, 125, 50, 0.10);
+  border-color: rgba(46, 125, 50, 0.18);
+}
+
+#taskList li button {
+  margin-left: auto;
+  color: #b9bfcf;
+  font-size: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 7px;
+  border-radius: 3px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+#taskList li button:hover {
+  background: #f0f2fa;
+  color: #ff5f57;
+}
+
+#taskList li:hover {
+  background: #f8f9ff;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(120, 139, 224, 0.16);
+}
+
+/* Minimal overdue highlight (only for not-completed tasks) */
+#taskList li.overdue {
+  background: rgba(255, 95, 87, 0.08);
+  border: 1px solid rgba(255, 95, 87, 0.25);
+}
+
+h1:hover {
+  transform: translateY(-1px);
+}
+
+
+/* Dynamic background removed (keeping background static) */
+
+/* Improved mobile layout for better size adjustments */
+@media (max-width: 768px) {
+  body {
+    font-size: 18px;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  .task-input {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .input-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  input, select, button {
+    font-size: 20px;
+    padding: 15px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .filters {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  #taskList {
+    font-size: 18px;
+    padding: 0;
+    list-style: none;
+  }
+}
