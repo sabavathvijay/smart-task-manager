@@ -272,7 +272,7 @@ h1:hover {
 /* Dynamic background removed (keeping background static) */
 
 /* Enhanced mobile responsiveness with larger fonts and better UX */
-@media (max-width: 768px) {
+@media (max-width: 468px) {
   body {
     font-size: 22px;
     padding: 16px;
